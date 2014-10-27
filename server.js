@@ -92,4 +92,4 @@ io.on('connection', function(client){
 });
 
 // Listen for requests
-var server = http.listen(3000, function () {});
+var server = http.listen(process.env.PORT || 3000, function () {});
