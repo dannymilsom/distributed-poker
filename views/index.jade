@@ -1,0 +1,47 @@
+extends layout
+
+block content
+
+  div.row
+    h1 Welcome to Planning Poker
+
+    p.small-12.medium-6.small-centered.columns.intro-text
+      | Planning poker is an consensus based technique used by agile teams 
+      | to estimate the effort required to complete defined goals.
+
+    p.small-12.medium-6.small-centered.columns.intro-text
+      | This implementation can be used by distributed teams, and is built 
+      | using Node JS, Express and Socket.IO. The source code is hosted on 
+      | GitHub and all contributions are welcomed.
+
+    form(id="login", class="text-center", class="row")
+      div.row
+        input(name='email',
+              type='email',
+              required='required',
+              placeholder='youremail@domain.com', 
+              class='small-12 medium-6 small-centered columns')
+      div.row
+        input(type='submit',
+              value='Join',
+              class='button success small-12 medium-6 small-centered columns')
+
+    div#main.hidden.text-center.small-12.columns
+
+      div.small-12.columns
+
+        div#users
+
+        div#results
+
+        div#btn-options
+
+          div#reveal-points.button.success Reveal
+
+          div#clear-points.button.alert Clear
+
+        div#options
+
+        div#feed
+
+
