@@ -48,7 +48,7 @@ $(function() {
   });
 
   socket.on('vote', function(voteDetails){
-    $("#users").find("#" + username + " .card")
+    $("#users").find("#" + voteDetails['username'] + " .card")
                .addClass("blurry-text")
                .text(voteDetails['points']);
   });
@@ -160,11 +160,9 @@ $(function() {
   $("#options").on("click", ".points-btn", function() {
     socket.emit('vote', {
       email: email,
+      username: username,
       points: $(this).find("span").text()
     });
-    $("#users").find("#" + username + " .card")
-               .text($(this).find("span").text());
-    $(".user-score").html($(this).text());
   });
 
   $("#clear-points").on("click", function() {
