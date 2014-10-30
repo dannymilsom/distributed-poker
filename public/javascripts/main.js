@@ -100,8 +100,8 @@ $(function() {
 
       // re-order the user list according to the points scored
       $users.sort(function(a, b) {
-        var an = $(a).text()[0],
-            bn = $(b).text()[0];
+        var an = parseInt($(a).text(), 10),
+            bn = parseInt($(b).text(), 10);
         if(an > bn) {
           return 1;
         }
