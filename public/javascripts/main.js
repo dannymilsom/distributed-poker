@@ -31,15 +31,20 @@ $(function() {
     var $options = $("#options");
     if ($options.children().length === 0){
       for (var i=0; i < pointsLength; i++){
-        $options.append($("<div/>").addClass("points-btn button")
-                                   .append($("<span/>").text(pointValues[i])));
+        var classes = "small-2 medium-1 columns inner-padding";
+        if (i == pointsLength - 1) {
+          classes = classes + " end";
+        }
+        $options.append($("<div/>").addClass(classes).append($("<div/>").addClass("button points")
+                                                                        .append($("<span/>")
+                                                                        .text(pointValues[i]))));
       }
     }
   });
 
   socket.on('valid email', function() {
-    $("#login, .intro-text").fadeOut("slow", function() {
-      $("#main").fadeIn("slow").removeClass("hidden");
+    $("#login, #intro-text").fadeOut("slow", function() {
+      $("#poker-room").fadeIn("slow").removeClass("hidden");
     });
   });
 
@@ -133,6 +138,7 @@ $(function() {
       });
       var $card = $("<div/>").addClass("card").text("?");
       userList.append($("<li/>").attr('id', value['username'])
+                                .addClass("small-12 colums")
                                 .append($img)
                                 .append($card));
     });
@@ -157,7 +163,7 @@ $(function() {
     });
   });
 
-  $("#options").on("click", ".points-btn", function() {
+  $("#options").on("click", ".points", function() {
     socket.emit('vote', {
       email: email,
       username: username,

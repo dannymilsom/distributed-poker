@@ -1,9 +1,10 @@
+/***** Basic Elements *****/
+
 body {
   font-size: 20px;
   font-family: 'PT Sans Narrow', sans-serif;
   background-color: #FFF;
   background-image: url('/images/footer_lodyas.png');
-  padding: 50px;
   color: #FFF;
 }
 
@@ -21,92 +22,87 @@ p {
   font-size: 18px;
 }
 
-.row {
-  max-width: 992px;
-}
+/***** Util Classes *****/
 
-.button {
-  font-family: 'PT Sans Narrow', sans-serif;
-  font-size: 20px;
-}
+.row { max-width: 992px; }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
+
+.inner-padding { padding: 0 2px 5px; }
+
+/***** Distribted Poker Elements *****/
 
 .card {
   background-color: #FFF;
-  height: 75px;
-  width: 60px;
+  height: 40px;
+  width: 40px;
   border-radius: 2px;
   display: inline-block;
-  font-size: 44px;
-  font-weight: 700;
+  font-size: 26px;
   color: #000;
   text-align: center;
 }
 
-.blurry-text {
+.card.blurry-text {
   color: transparent;
   text-shadow: 0 0 30px rgba(0,0,0,2.5);
+  font-weight: 700;
 }
 
-.points-btn {
+.points {
   display: inline-block;
-  width: 70px;
-  height: 100px;
+  width: 100%;
+  min-width: 35px;
+  height: 70px;
   background-color: #008cba;
-  font-weight: 700;
-  font-size: 44px;
+  font-size: 26px;
   text-align: center;
-  padding-top: 20px;
-  margin: 10px;
   border-radius: 2px;
   cursor: pointer;
   padding-left: 0;
   padding-right: 0;
   padding-bottom: 0;
+  margin: 2px 0 0;
 }
 
-.points-btn:first-child {
-  margin-left: 0;
-}
-
-#users ul, #users li, nav li {
+#users ul {
   list-style-type: none;
-  margin-left: 0;
-  margin: 10px;
+  margin: 10px 0;
 }
 
 #users img {
-  border-radius: 50%;
-  width: 75px;
-  height: 75px;
+  border-radius: 2px;
+  width: 40px;
+  height: 40px;
   vertical-align: top;
-  margin-right: 20px;
+  margin: 0 10px 5px 0;
 }
 
-#users span {
-  display: block;
-}
+#users span { display: block; }
 
 #reveal-points {
-  margin-right: 20px;
+  padding: 5px;
+  margin-bottom: 10px;
 }
 
-#results li {
-  list-style-type: none;
+#clear-points {
+  padding: 5px;
+  margin-bottom: 10px;
 }
 
 #feed {
   list-style-type: none;
   border-top: 1px solid #FFF;
   padding: 20px 0;
+  font-size: 16px;
+  margin-top: 10px;
 }
 
-#options {
-  padding-bottom: 20px;
-}
+#login { margin-bottom: 40px; }
+
+#login input[type=submit] { margin: 2px 0 0; }
+
+#login input[type=submit]:hover { text-decoration: underline; }
 
 #login input[type=email] {
   font-size: 14px;
@@ -115,24 +111,14 @@ p {
   display: block;
 }
 
-#login input[type=submit] {
-    margin: 2px 0 0;
-}
-
-#login input[type=submit]:hover {
-  text-decoration: underline;
-}
-
 #agreement {
   color: #4a831c;
-  font-size: 40px;
-  font-weight: 700;
+  font-size: 30px;
 }
 
 #disagreement {
-  color: #f08a24 ;
-  font-size: 40px;
-  font-weight: 700;
+  color: #f08a24;
+  font-size: 30px;
 }
 
 .warning {
@@ -145,3 +131,80 @@ p {
   color: #f08a24;
 }
 
+.button {
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-size: 20px;
+}
+
+/***** Media Queries *****/
+
+@media(min-width: 641px){
+  #agreement {
+    font-size: 40px;
+  }
+  #disagreement {
+    font-size: 40px;
+  }
+  #feed {
+    margin-top: 0;
+  }
+  #reveal-points {
+    margin: 0 10px 5px 0;
+  }
+  #clear-points {
+    margin: 0 0 5px 0;
+  }
+  #users img {
+    width: 50px;
+    height: 50px;
+    margin: 0 20px 10px 0;
+  }
+  .card {
+    width: 50px;
+    height: 50px;
+    font-size: 32px;
+  }
+  .points {
+    height: 80px;
+    padding-top: 20px;
+    font-size: 26px;
+    margin: 10px 10px 10px 0;
+  }
+  .inner-padding {
+    padding: 0 10px 10px;
+  }
+}
+
+@media(min-width: 1025px){
+  #feed {
+    margin: 0 100px;
+  }
+  #reveal-points {
+    padding: 10px;
+    margin: 0 20px 10px 0;
+  }
+  #clear-points {
+    padding: 10px;
+    margin: 0 0 10px 0;
+  }
+  .points {
+    height: 90px;
+    font-size: 32px;
+  }
+}
+
+@media(min-width: 1441px){
+  #feed {
+    margin: 0 400px;
+  }
+  #users img {
+    width: 60px;
+    height: 60px;
+    margin: 0 20px 10px 0;
+  }
+  .card {
+    width: 60px;
+    height: 60px;
+    padding-top: 3px;
+  }
+}
