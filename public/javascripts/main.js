@@ -28,22 +28,23 @@ $(function() {
 
   socket.on('render options', function(pointValues){
     var pointsLength = pointValues.length;
-    var $options = $("#options");
+    var $options = $("#vote-options");
     if ($options.children().length === 0){
       for (var i=0; i < pointsLength; i++){
         var classes = "small-2 medium-1 columns inner-padding";
         if (i == pointsLength - 1) {
           classes = classes + " end";
         }
-        $options.append($("<div/>").addClass(classes).append($("<div/>").addClass("button points")
-                                                                        .append($("<span/>")
-                                                                        .text(pointValues[i]))));
+        $options.append($("<div/>").addClass(classes)
+                                   .append($("<div/>").addClass("button points")
+                                   .append($("<span/>")
+                                   .text(pointValues[i]))));
       }
     }
   });
 
   socket.on('valid email', function() {
-    $("#login, #intro-text").fadeOut("slow", function() {
+    $("#welcome").fadeOut("slow", function() {
       if (role == 'observer') {
         $(".button").addClass("disabled");
       }
@@ -58,28 +59,28 @@ $(function() {
   });
 
   socket.on('vote', function(voteDetails){
-    $("#users").find("#" + voteDetails['username'] + " .card")
+    $("#players").find("#" + voteDetails['username'] + " .card")
                .addClass("blurry-text")
                .text(voteDetails['points']);
   });
 
   socket.on('clear', function(){
-    $("#users, #results").fadeOut(function() {
-      $('#users').find(".card").text("?");
+    $("#players, #results").fadeOut(function() {
+      $('#players').find(".card").text("?");
       $('#results').html("");
     });
-    $("#users, #results").fadeIn();
+    $("#players, #results").fadeIn();
   });
 
   socket.on('reveal', function(){
 
-    $("#users, #results").fadeOut(function() {
+    $("#players, #results").fadeOut(function() {
 
       var votes = [],
           counter = 0,
           $results = $("#results"),
           $cards = $(".card"),
-          $users = $("#users ul").children();
+          $users = $("#players ul").children();
 
       $results.html("");
       $cards.removeClass("blurry-text");
@@ -117,11 +118,11 @@ $(function() {
       });
 
       // modify the DOM to reflect point scores
-      $("#users").html($("<ul/>"));
+      $("#players").html($("<ul/>"));
       $users.each(function(){
-        $("#users ul").append(this);
+        $("#players ul").append(this);
       });
-      $("#users, #results").fadeIn();
+      $("#players, #results").fadeIn();
     });
 
   });
@@ -155,7 +156,7 @@ $(function() {
                                       .append($img));
       }
     });
-    $('#users').html(playerList);
+    $('#players').html(playerList);
     $("#observers").html(observerList);
   });
 
@@ -172,7 +173,6 @@ $(function() {
     email = $('input[name=email]').val();
     username = email.split("@")[0].replace(".", "");
     role = $('select[name=role]').find(':selected').val();
-    console.log(role);
     socket.emit('join', {
       username: username,
       email: email,
@@ -180,7 +180,7 @@ $(function() {
     });
   });
 
-  $("#options").on("click", ".points", function() {
+  $("#vote-options").on("click", ".points", function() {
     socket.emit('vote', {
       email: email,
       username: username,

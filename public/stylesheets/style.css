@@ -152,7 +152,7 @@ input:-webkit-autofill {
   font-size: 20px;
 }
 
-#btn-options { margin-top: 10px; }
+#action-options { margin-top: 10px; }
 
 /***** Media Queries *****/
 
@@ -172,7 +172,7 @@ input:-webkit-autofill {
   #clear-points {
     margin: 0 0 5px 0;
   }
-  #users img {
+  #players img {
     width: 50px;
     height: 50px;
     margin: 0 20px 10px 0;
@@ -215,7 +215,7 @@ input:-webkit-autofill {
   #feed {
     margin: 0 400px;
   }
-  #users img {
+  #players img {
     width: 60px;
     height: 60px;
     margin: 0 20px 10px 0;

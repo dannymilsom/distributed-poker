@@ -2,9 +2,10 @@ extends layout
 
 block content
 
-  h1 Distributed Poker
+  nav.row
+    h1 Distributed Poker
 
-  div#intro-text.row
+  section#welcome.row
 
     p.small-12.medium-6.small-centered.columns
       | Planning poker is an consensus based technique used by agile teams 
@@ -14,8 +15,6 @@ block content
       | This implementation can be used by distributed teams, and is built 
       | using Node JS, Express and Socket.IO. The source code is hosted on 
       | GitHub and all contributions are welcomed.
-
-  div#authenticate.row
 
     form(id="login",
         class="small-12 small-centered medium-6 columns text-center")
@@ -33,23 +32,25 @@ block content
               value='Join',
               class='button success small-12 columns')
 
-  div#poker-room.hidden.text-center
+  section#poker-room.text-center.hidden
 
     div.small-12.columns
 
-      div#users.row
+      section#users
 
-      div#observers.row
+        div#players.row
 
-      div#results
+        div#observers.row
 
-      div#btn-options.row
+      section#results
+
+      section#action-options.row
 
         div#reveal-points.button.success.small-6.medium-3.large-2 Reveal
 
         div#clear-points.button.alert.small-6.medium-3.large-2 Clear
 
-      div#options.row
+      section#vote-options.row
 
-      div#feed
+      section#feed
 
