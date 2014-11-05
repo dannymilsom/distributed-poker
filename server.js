@@ -14,7 +14,7 @@ app.set('view engine', 'jade');
 
 // Routers
 app.get('/', function (req, res) {
-  res.render("index");
+  res.render("index", {roles: settings.roles});
 });
 
 // Meta objects and util functions

@@ -22,6 +22,15 @@ p {
   font-size: 18px;
 }
 
+select, input {
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-size: 16px;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
 /***** Util Classes *****/
 
 .row { max-width: 992px; }
@@ -65,7 +74,7 @@ p {
   margin: 2px 0 0;
 }
 
-#users ul {
+#users ul, #observers ul {
   list-style-type: none;
   margin: 10px 0;
 }
@@ -79,6 +88,14 @@ p {
 }
 
 #users span { display: block; }
+
+#observers img {
+  height: 40px;
+  width: 40px;
+  border-radius: 2px;
+}
+
+#observers li { display: inline-block; }
 
 #reveal-points {
   padding: 5px;
@@ -104,8 +121,7 @@ p {
 
 #login input[type=submit]:hover { text-decoration: underline; }
 
-#login input[type=email] {
-  font-size: 14px;
+#login input[type=email], #login select{
   padding: 10px;
   text-align: center;
   display: block;
@@ -135,6 +151,8 @@ p {
   font-family: 'PT Sans Narrow', sans-serif;
   font-size: 20px;
 }
+
+#btn-options { margin-top: 10px; }
 
 /***** Media Queries *****/
 

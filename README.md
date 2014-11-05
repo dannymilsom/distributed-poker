@@ -9,6 +9,7 @@ Distributed-Poker is a real time [planning poker](http://en.wikipedia.org/wiki/P
 * Simple sign in using an email address.
 * User friendly interface offering [Gravatar](https://en.gravatar.com/) support.
 * Keyboard shortcuts for the productive programmer.
+* Player and observer roles for mixed delivery teams.
 * Easily configurable options, including custom points values and email address whitelist.
 
 ##Technology

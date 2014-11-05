@@ -44,7 +44,12 @@ $(function() {
 
   socket.on('valid email', function() {
     $("#login, #intro-text").fadeOut("slow", function() {
-      $("#poker-room").fadeIn("slow").removeClass("hidden");
+      if (role == 'observer') {
+        $(".button").addClass("disabled");
+      }
+      $("#poker-room").fadeIn("slow", function() {
+        $("#poker-room").removeClass("hidden");
+      });
     });
   });
 
@@ -129,20 +134,29 @@ $(function() {
   });
 
   socket.on('update users', function(users){
-    var userList = $("<ul/>");
+    var playerList = $("<ul/>"),
+        observerList = $("<ul/>");
+
     $.each(users, function(key, value) {
-      //userList.append($("<li/>").text(value));
+
       var $img = $("<img/>").attr({
         src: gravatar + value['hash'],
-        title: value['username']
+        title: value['username'] + " : " + value['role']
       });
-      var $card = $("<div/>").addClass("card").text("?");
-      userList.append($("<li/>").attr('id', value['username'])
-                                .addClass("small-12 colums")
-                                .append($img)
-                                .append($card));
+
+      if (value['role'] == 'player') {
+        var $card = $("<div/>").addClass("card").text("?");
+        playerList.append($("<li/>").attr('id', value['username'])
+                                  .addClass("small-12 colums")
+                                  .append($img)
+                                  .append($card));
+      } else {
+        observerList.append($("<li/>").attr('id', value['username'])
+                                      .append($img));
+      }
     });
-    $('#users').html(userList);
+    $('#users').html(playerList);
+    $("#observers").html(observerList);
   });
 
   socket.on('user left', function(username) {
@@ -157,9 +171,12 @@ $(function() {
     $(".warning").remove();
     email = $('input[name=email]').val();
     username = email.split("@")[0].replace(".", "");
+    role = $('select[name=role]').find(':selected').val();
+    console.log(role);
     socket.emit('join', {
       username: username,
-      email: email
+      email: email,
+      role: role
     });
   });
 

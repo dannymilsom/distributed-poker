@@ -24,6 +24,11 @@ block content
               required='required',
               placeholder='youremail@domain.com', 
               class='small-12 columns')
+        select(name='role',
+              required='required',
+              class='small-12 columns')
+          for choice in roles
+            option(value=choice.toLowerCase()) #{choice}
         input(type='submit',
               value='Join',
               class='button success small-12 columns')
@@ -33,6 +38,8 @@ block content
     div.small-12.columns
 
       div#users.row
+
+      div#observers.row
 
       div#results
 
