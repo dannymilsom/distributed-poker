@@ -67,6 +67,7 @@ $(function() {
   socket.on('clear', function(){
     $("#players, #results").fadeOut(function() {
       $('#players').find(".card").text("?");
+      $(".card").removeClass("blurry-text");
       $('#results').html("");
     });
     $("#players, #results").fadeIn();
