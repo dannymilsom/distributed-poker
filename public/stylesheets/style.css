@@ -125,6 +125,7 @@ input:-webkit-autofill {
   padding: 10px;
   text-align: center;
   display: block;
+  margin-bottom: 5px;
 }
 
 #agreement {
