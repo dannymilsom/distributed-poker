@@ -75,7 +75,11 @@ $(function() {
 
   socket.on('reveal', function(){
 
-    $("#players, #results").fadeOut(function() {
+    $("#results").fadeOut(function(){
+      $(this).html("");
+    });
+
+    $("#players").fadeOut(function() {
 
       var votes = [],
           counter = 0,
@@ -83,7 +87,6 @@ $(function() {
           $cards = $(".card"),
           $users = $("#players ul").children();
 
-      $results.html("");
       $cards.removeClass("blurry-text");
 
       // count the votes and show an appropriate message
@@ -96,19 +99,30 @@ $(function() {
                                   .text("Group consensus!"));
       }
       else {
+        validVotes = $users.length;
         $users.each(function(){
-          counter += parseInt($(this).text()[0], 10);
+          var pointsVoted = parseInt($(this).text(), 10);
+          if (isNaN(pointsVoted)) {
+            // parseInt returned NaN probably from '?'
+            validVotes -= 1;
+          } else {
+            counter += pointsVoted;
+          }
         });
 
-        var average = counter / $users.length;
+        var average = counter / validVotes;
+        // round to two decimal places if required
+        if (average !== Math.round(average)) {
+          average = average.toFixed(2);
+        }
         $results.html($("<span/>").attr("id", "disagreement")
                                   .text("No consensus - average points " + average));
       }
 
       // re-order the user list according to the points scored
       $users.sort(function(a, b) {
-        var an = parseInt($(a).text(), 10),
-            bn = parseInt($(b).text(), 10);
+        var an = parseInt($(a).text(), 10) || 0,
+            bn = parseInt($(b).text(), 10) || 0;
         if(an > bn) {
           return 1;
         }
