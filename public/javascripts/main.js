@@ -180,7 +180,7 @@ $(function() {
     });
   });
 
-  $("#vote-options").on("click", ".points", function() {
+  $("#vote-options").on("click", ".points:not(.disabled)", function() {
     socket.emit('vote', {
       email: email,
       username: username,
