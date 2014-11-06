@@ -117,7 +117,7 @@ input:-webkit-autofill {
 
 #login { margin-bottom: 40px; }
 
-#login input[type=submit] { margin: 2px 0 0; }
+#login input[type=submit] { margin: 0}
 
 #login input[type=submit]:hover { text-decoration: underline; }
 
@@ -125,7 +125,7 @@ input:-webkit-autofill {
   padding: 10px;
   text-align: center;
   display: block;
-  margin-bottom: 5px;
+  margin: 0 0 5px;
 }
 
 #agreement {
