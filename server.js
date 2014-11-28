@@ -38,15 +38,12 @@ io.on('connection', function(client){
 
     var errorMsg;
     if (checkIfEmailAlreadyUsed(userDetails['email'])) {
-      errorMsg = "<span class='warning'>A user has already entered the room " +
-                 "with the email address " + userDetails['email'] + "</span>";
+      errorMsg = "A user has already entered the room with the email address " +
+                 userDetails['email'];
     }
     else if (settings.validEmails.length > 0 &&
              settings.validEmails.indexOf(userDetails['email']) === -1) {
-      errorMsg = "<span class='warning'>" + userDetails['email'] + " is not " +
-                 "an approved email address. Contact the " +
-                  "<a href='mailto:" + settings.adminEmail +
-                  "'>site administrator</a> for further assistance.";
+      errorMsg = userDetails['email'] + " is not an approved email address";
     }
 
     if (typeof errorMsg == 'undefined') {
@@ -65,7 +62,7 @@ io.on('connection', function(client){
       io.emit("update users", users);
     }
     else {
-      client.emit("invalid email", errorMsg);
+      client.emit("invalid email", errorMsg, settings.adminEmail);
     }
   });
 

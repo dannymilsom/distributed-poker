@@ -54,8 +54,11 @@ $(function() {
     });
   });
 
-  socket.on('invalid email', function(msg) {
-    $("#login").append(msg);
+  socket.on('invalid email', function(msg, adminEmail) {
+    var error_msg = "<span class='warning'>" + msg + ". Contact the " +
+                    "<a href='mailto:" + adminEmail + "'> site " +
+                    "administrator</a> for further assistance.</span>";
+    $("#login").append(error_msg);
   });
 
   socket.on('vote', function(voteDetails){
