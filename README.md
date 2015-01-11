@@ -18,6 +18,7 @@ Distributed-Poker is built on a range of Open Source technologies include:
 
 * [NodeJS](http://nodejs.org/)
 * [ExpressJS](http://expressjs.com/)
+* [Backbone](http://backbonejs.org/)
 * [SocketIO](http://socket.io/)
 * [Jade](http://jade-lang.com/)
 

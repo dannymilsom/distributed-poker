@@ -5,6 +5,7 @@ var express = require('express'),
     http = require('http').Server(app),
     io = require('socket.io')(http),
     md5 = require('blueimp-md5').md5,
+    _ = require('underscore');
     settings = require('./settings.js');
 
 // Middleware
@@ -14,55 +15,61 @@ app.set('view engine', 'jade');
 
 // Routers
 app.get('/', function (req, res) {
-  res.render("index", {roles: settings.roles});
+  res.render("index", { roles: settings.roles });
 });
 
 // Meta objects and util functions
-var users = {};
+var users = {},
+    adminEmail = settings.adminEmail,
+    validEmails = settings.validEmails;
 
-var checkIfEmailAlreadyUsed = function(email) {
-  var usedEmails = [];
-  for (var user in users) {
-    usedEmails.push(users[user]['email']);
-  }
-  if (usedEmails.indexOf(email) >= 0) {
-    return true;
-  } else { return false; }
-};
+function usedEmail(email) {
+      var emails = [];
+      for (var user in users) {
+        emails.push(users[user]['email']);
+      }
+      if (_.contains(emails, email)) {
+        return true;
+      } else { return false; }
+}
 
 // SocketIO
 io.on('connection', function(client){
 
-  // client joins
   client.on('join', function(userDetails){
+    var errorMsg,
+        email = userDetails['email'],
+        role = userDetails['role'],
+        username = email.split("@")[0].replace(".", "");
 
-    var errorMsg;
-    if (checkIfEmailAlreadyUsed(userDetails['email'])) {
-      errorMsg = "A user has already entered the room with the email address " +
-                 userDetails['email'];
+    if (usedEmail(email)) {
+      errorMsg = "A user has already entered the room with the address " + email;
     }
-    else if (settings.validEmails.length > 0 &&
-             settings.validEmails.indexOf(userDetails['email']) === -1) {
-      errorMsg = userDetails['email'] + " is not an approved email address";
+    else if (validEmails.length > 0 && _.contains(validEmails, email)) {
+      errorMsg = email + " is not an approved email address";
     }
 
-    if (typeof errorMsg == 'undefined') {
-      // add a md5 hash for gravatar img
-      userDetails['hash'] = md5(userDetails['email']);
-
+    if (errorMsg) {
+      client.emit("invalid email", {message: errorMsg, adminEmail: adminEmail});
+    } else {
+      // add a md5 hash for gravatar img and username to userDetails mapping
+      userDetails['hash'] = md5(email);
+      userDetails['username'] = username;
       // add client to array of connected users
       users[client.id] = userDetails;
-
       // send response to new client only
-      client.emit('render options', settings.points);
-      client.emit("valid email", true);
-
+      client.emit("enter room", {
+        user: userDetails,
+        users: _.filter(users, function(user){
+          return user.role == 'player';
+        }),
+        observers: _.filter(users, function(user) {
+          return user.role == 'observer';
+        }),
+        points: settings.points,
+      });
       // emit events to all connected users
-      io.emit("feed", userDetails['username'] + " joined.");
-      io.emit("update users", users);
-    }
-    else {
-      client.emit("invalid email", errorMsg, settings.adminEmail);
+      io.emit("new user", userDetails);
     }
   });
 
@@ -70,19 +77,18 @@ io.on('connection', function(client){
     io.emit('vote', voteDetails);
   });
 
-  client.on('reveal', function(){
+  client.on('reveal', function() {
     io.emit('reveal');
   });
 
-  client.on('clear', function(){
+  client.on('clear', function() {
     io.emit('clear');
   });
 
   client.on('disconnect', function(){
     if (client.id in users){
-      var username = users[client.id]['username'];
-      io.emit('feed', username + " left.");
-      io.emit('user left', username);
+     // var username = users[client.id]['username'];
+      io.emit('user left', users[client.id]);
       delete users[client.id];
     }
   });

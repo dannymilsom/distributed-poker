@@ -41,6 +41,15 @@ input:-webkit-autofill {
 
 /***** Distribted Poker Elements *****/
 
+#welcome a {
+  color: #FFF;
+  text-decoration: underline;
+}
+
+#welcome a:hover {
+  color: #CCC;
+}
+
 .card {
   background-color: #FFF;
   height: 40px;
@@ -128,22 +137,23 @@ input:-webkit-autofill {
   margin: 0 0 5px;
 }
 
-#agreement {
+.agreement {
   color: #4a831c;
-  font-size: 30px;
+  font-size: 24px;
 }
 
-#disagreement {
+.disagreement {
   color: #f08a24;
-  font-size: 30px;
+  font-size: 24px;
 }
 
-.warning {
+#welcome .warning {
   color: #f08a24;
   display: block;
+  font-size: 16px;
 }
 
-.warning a {
+#welcome .warning a {
   text-decoration: underline;
   color: #f08a24;
 }
