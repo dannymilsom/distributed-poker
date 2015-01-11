@@ -22,18 +22,3 @@ require(['/javascripts/config.js'], function() {
 
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
