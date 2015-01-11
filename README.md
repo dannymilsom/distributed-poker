@@ -14,7 +14,7 @@ Distributed-Poker is a real time [planning poker](http://en.wikipedia.org/wiki/P
 
 ##Technology
 
-Distributed-Poker is built on a range of Open Source technologies include:
+Distributed-Poker is built on a range of Open Source technologies including:
 
 * [NodeJS](http://nodejs.org/)
 * [ExpressJS](http://expressjs.com/)
